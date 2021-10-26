@@ -170,6 +170,13 @@ class LineGenerator(Visitor[Line]):
                 yield from self.line()
             yield from self.visit_default(node)
 
+    def visit_match_case_stmt(self, node: Node) -> Iterator[Line]:
+        """Visit `match: ...`"""
+        yield from self.line()
+
+        for child in node.children:
+            yield from self.visit(child)
+
     def visit_async_stmt(self, node: Node) -> Iterator[Line]:
         """Visit `async def`, `async for`, `async with`."""
         yield from self.line()
@@ -276,6 +283,8 @@ class LineGenerator(Visitor[Line]):
         self.visit_if_stmt = partial(
             v, keywords={"if", "else", "elif"}, parens={"if", "elif"}
         )
+        self.visit_match_stmt = self.visit_match_case_stmt
+        self.visit_case_stmt = partial(v, keywords={"case"}, parens={"case"})
         self.visit_while_stmt = partial(v, keywords={"while", "else"}, parens={"while"})
         self.visit_for_stmt = partial(v, keywords={"for", "else"}, parens={"for", "in"})
         self.visit_try_stmt = partial(

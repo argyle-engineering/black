@@ -72,7 +72,9 @@ AWAIT: Final = 56
 ASYNC: Final = 57
 ERRORTOKEN: Final = 58
 COLONEQUAL: Final = 59
-N_TOKENS: Final = 60
+MATCH: Final = 60
+CASE: Final = 61
+N_TOKENS: Final = 62
 NT_OFFSET: Final = 256
 # --end constants--
 

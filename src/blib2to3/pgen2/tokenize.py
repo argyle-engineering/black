@@ -268,7 +268,7 @@ class Untokenizer:
         for tok in iterable:
             toknum, tokval = tok[:2]
 
-            if toknum in (NAME, NUMBER, ASYNC, AWAIT):
+            if toknum in (NAME, NUMBER, ASYNC, AWAIT, MATCH, CASE):
                 tokval += " "
 
             if toknum == INDENT:
@@ -610,6 +610,22 @@ def generate_tokens(
                         if async_keywords or async_def:
                             yield (
                                 ASYNC if token == "async" else AWAIT,
+                                token,
+                                spos,
+                                epos,
+                                line,
+                            )
+                            continue
+
+                    if token in ("match", "case"):
+                        # Check if this is a match/case statement. Not the most ideal
+                        # solution, but does the job for now.
+                        if re.findall(
+                            r"""^(match|case)\s+["\[\(\w]+[\[\(\w\)\]=:,"\s.]+""",
+                            line.strip(),
+                        ):
+                            yield (
+                                MATCH if token == "match" else CASE,
                                 token,
                                 spos,
                                 epos,

@@ -45,6 +45,7 @@ class _python_symbols(Symbols):
     atom: int
     augassign: int
     break_stmt: int
+    case_stmt: int
     classdef: int
     comp_for: int
     comp_if: int
@@ -82,6 +83,7 @@ class _python_symbols(Symbols):
     import_stmt: int
     lambdef: int
     listmaker: int
+    match_stmt: int
     namedexpr_test: int
     not_test: int
     old_comp_for: int

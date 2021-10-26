@@ -43,6 +43,8 @@ NodeType = int
 WHITESPACE: Final = {token.DEDENT, token.INDENT, token.NEWLINE}
 STATEMENT: Final = {
     syms.if_stmt,
+    syms.case_stmt,
+    syms.match_stmt,
     syms.while_stmt,
     syms.for_stmt,
     syms.try_stmt,

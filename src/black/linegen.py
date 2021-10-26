@@ -276,6 +276,8 @@ class LineGenerator(Visitor[Line]):
         self.visit_if_stmt = partial(
             v, keywords={"if", "else", "elif"}, parens={"if", "elif"}
         )
+        self.visit_match_stmt = partial(v, keywords={"match"}, parens=Ø)
+        self.visit_case_stmt = partial(v, keywords={"case"}, parens=Ø)
         self.visit_while_stmt = partial(v, keywords={"while", "else"}, parens={"while"})
         self.visit_for_stmt = partial(v, keywords={"for", "else"}, parens={"for", "in"})
         self.visit_try_stmt = partial(

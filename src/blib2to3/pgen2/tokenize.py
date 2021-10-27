@@ -621,7 +621,7 @@ def generate_tokens(
                         # Check if this is a match/case statement. Not the most ideal
                         # solution, but does the job for now.
                         if re.findall(
-                            r"""^(match|case)\s+["\[\(\w]+[\\\[\(\w\)\]=:,"\s.]*""",
+                            r"""^(match|case)\s+["'\{\[\(\w\-\+\.]+.*""",
                             line.strip(),
                         ):
                             yield (

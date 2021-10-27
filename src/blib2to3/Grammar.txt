@@ -119,7 +119,7 @@ compound_stmt: (if_stmt
 async_stmt: ASYNC (funcdef | with_stmt | for_stmt)
 if_stmt: 'if' namedexpr_test ':' suite ('elif' namedexpr_test ':' suite)* ['else' ':' suite]
 match_stmt: MATCH namedexpr_test ':' NEWLINE INDENT case_stmt+ DEDENT
-case_stmt: CASE expr [guard] ':' suite
+case_stmt: CASE or_test [guard] ':' suite
 guard: 'if' namedexpr_test
 while_stmt: 'while' namedexpr_test ':' suite ['else' ':' suite]
 for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite]
@@ -144,7 +144,8 @@ testlist_safe: old_test [(',' old_test)+ [',']]
 old_test: or_test | old_lambdef
 old_lambdef: 'lambda' [varargslist] ':' old_test
 
-namedexpr_test: test [':=' test]
+namedexpr_test: asexpr_test [':=' asexpr_test]
+asexpr_test: test ['as' test]
 test: or_test ['if' or_test 'else' test] | lambdef
 or_test: and_test ('or' and_test)*
 and_test: not_test ('and' not_test)*
